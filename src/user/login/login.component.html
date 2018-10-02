@@ -1,8 +1,54 @@
-<div class="container">
-  <h1 style="text-align: center">Login</h1>
-  <p>
-    login works!
-    <button (click)="demo()">Toastr Demo</button>
-  </p>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+  <a class="navbar-brand" href="/">My Chat</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+
+    <span class="navbar-toggler-icon"></span>
+
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav">
+
+      <li class="nav-item">
+
+        <a class="nav-link" (click)="goToSignup()">Sign-Up</a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+<div class="row p-0 m-0">
+
+  <div class="col-sm"></div>
+
+  <div class="col-sm p-5">
+
+    <h2 class="form-signin-heading">Please sign in</h2>
+
+    <label for="inputEmail" class="sr-only">Email address</label>
+
+    <input type="email" id="inputEmail" class="form-control" [(ngModel)]="email" placeholder="Email address" required autofocus>
+
+    <br>
+
+    <label for="inputPassword" class="sr-only">Password</label>
+
+    <input type="password" id="inputPassword" class="form-control" [(ngModel)]="password" placeholder="Password" required>
+
+    <br>
+
+    <button class="btn btn-lg btn-primary btn-block" type="button" (click)="signIn()">Sign in</button>
+
+  </div>
+
+  <div class="col-sm"></div>
 
 </div>

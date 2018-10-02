@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
@@ -14,7 +14,8 @@ import { SignupComponent } from './signup/signup.component';
         path: 'signup', component: SignupComponent
       }
     ]),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [LoginComponent, SignupComponent]
 })

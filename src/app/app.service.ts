@@ -41,4 +41,12 @@ export class AppService {
     console.log(err.message);
     return Observable.throw(err.message);
   }
+
+  public setUserInfo(data) {
+    localStorage.setItem('userInfo', JSON.stringify(data));
+  }
+
+  public getUserInfo() {
+    return localStorage.getItem('userInfo');
+  }
 }
