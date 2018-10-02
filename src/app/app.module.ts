@@ -6,16 +6,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from '../user/login/login.component';
-import { componentFactoryName } from '@angular/compiler';
-import { UserModule } from '../user/user.module';
-import { ChatModule } from '../chat/chat.module';
-import { ChatComponent } from './chat/chat/chat.component';
+import { LoginComponent } from './user/login/login.component';
+import { UserModule } from './user/user.module';
+import { ChatModule } from './chat/chat.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ChatComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

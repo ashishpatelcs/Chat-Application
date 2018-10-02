@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+
+    <div class="displayBlockMobile" style="position:fixed;width:100%;z-index:1;">
+
+      <div class="col-sm-12 p-0">
+
+        <nav class="navbar navbar-expand-md navbar-fixed navbar-dark bg-dark">
+
+          <a class="navbar-brand text-white">
+            {{ userName }}
+            <i class="online" *ngIf="disconnectedSocket == false"></i>
+            <i class="offline" *ngIf="disconnectedSocket == true"></i>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon"></span>
+
+          </button>
+
+          <div class="collapse people-list navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="list">
+              <li class="p-2 typeOfChats">
+                Online Users:
+              </li>
+              <li class="clearfix cursorPointer" [ngClass]="{'activeChat': user.chating == true}"
+                *ngFor="let user of userList">
+                <div class="userPresence" *ngIf="user.userId != userInfo.userId">
+                  {{user.name}}
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </nav>
+
+      </div>
+
+    </div>
+
+    <div class="col-12 displayNoneMobile col-sm-4 col-md-4 people-list p-0" id="people-list">
+
+      <div class="p-3 text-white textCapitalize textCenter">
+        {{userInfo.firstName}} {{userInfo.lastName}}
+        <i class="fa fa-circle online" *ngIf="disconnectedSocket == false"></i>
+        <i class="fa fa-circle offline" *ngIf="disconnectedSocket == true"></i>
+        <br>
+        <br>
+
+      </div>
+
+      <ul class="list">
+        <li class="p-2 typeOfChats">
+          Online Users:
+        </li>
+        <li class="clearfix cursorPointer" [ngClass]="{'activeChat': user.chating == true}"
+          *ngFor="let user of userList">
+          <div class="userPresence" *ngIf="user.userId != userInfo.userId">
+
+            <!-- code to display individual users -->
+
+              {{user.name}}
+
+            <!-- code to display individual users -->
+          </div>
+        </li>
+
+      </ul>
+
+
+    </div>
+
+
+
+  </div>
+  <!-- end chat -->
+
+</div>
+<!-- end container -->
+
+
+
