@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Cookie } from 'ng2-cookies/ng2-cookies';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/opeartor/do';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
