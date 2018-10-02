@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,7 +19,7 @@ import { ChatModule } from '../chat/chat.module';
     BrowserModule,
     UserModule,
     ChatModule,
-    HttpModule,
+    HttpClientModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     RouterModule.forRoot([
