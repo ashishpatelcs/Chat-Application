@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SocketService } from '../../socket.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,6 +12,9 @@ import { AppService } from '../../app.service';
   providers: [SocketService]
 })
 export class ChatComponent implements OnInit {
+  @ViewChild('scrollMe', { read: ElementRef })
+  public scrollMe: ElementRef;
+
   private authToken;
   public userInfo;
   public userName;
@@ -21,10 +24,11 @@ export class ChatComponent implements OnInit {
   public receiverName;
   public receiverId;
   public pageValue;
+  public loadingPreviousChat = false;
 
   public messageText;
   public messageList = [];
-  public scrollTop: boolean;
+  public scrollTop = false;
 
   // tslint:disable-next-line:max-line-length
   constructor(private socketService: SocketService, private router: Router, private toastr: ToastrService, private appService: AppService) {
@@ -62,18 +66,19 @@ export class ChatComponent implements OnInit {
 
   public getUserList() {
     this.socketService.onlineUserList().subscribe(
-      (userList) => {
+      (list) => {
         this.userList = [];
-        for (const user of userList) {
+        // tslint:disable-next-line:forin
+        for (const user in list) {
           const data = {
             userId: user,
-            userName: userList[user],
+            userName: list[user],
             unread: 0,
             chatting: false
           };
           this.userList.push(data);
         }
-        console.log(this.userList);
+        // console.log(this.userList);
       });
   }
 
@@ -116,7 +121,14 @@ export class ChatComponent implements OnInit {
     );
   }
 
-  public receiverChat(id, name) {
+  public findNameById(id) {
+    for (const user of this.userList) {
+      if (user.userId == id) { return user.userName; }
+    }
+  }
+
+  public receiverChat: any = (id) => {
+    name = this.findNameById(id);
     this.userList.map(
       user => {
         if (user.userId === id) {
@@ -142,5 +154,43 @@ export class ChatComponent implements OnInit {
   }
 
   public getPreviousChatWithUser() {
+    const previousData = this.messageList.length > 0 ? this.messageList.slice() : [];
+    this.socketService.getChat(this.userInfo.userId, this.receiverId, this.pageValue * 10).subscribe(
+      (response) => {
+        if (response['status'] == 200) {
+          this.messageList = response['data'].concat(previousData);
+        } else {
+          this.messageList = previousData;
+          this.toastr.warning('No new messages available!');
+        }
+      }
+    );
+  }
+
+  public paginateChat() {
+    this.loadingPreviousChat = false;
+    this.pageValue++;
+    this.scrollTop = true;
+    this.getPreviousChatWithUser();
+  }
+
+  public logout() {
+    this.appService.logout().subscribe(
+      response => {
+        if (response['status'] == 200) {
+          Cookie.delete('authToken');
+          Cookie.delete('userId');
+          Cookie.delete('userName');
+          this.socketService.exitSocket();
+          console.log('logout success');
+          this.router.navigate(['/']);
+        } else {
+          this.toastr.error(response['error']);
+        }
+      },
+      error => {
+        this.toastr.error('Some error has occured!');
+      }
+    );
   }
 }

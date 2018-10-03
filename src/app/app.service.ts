@@ -46,6 +46,13 @@ export class AppService {
   }
 
   public getUserInfo() {
-    return localStorage.getItem('userInfo');
+    return JSON.parse(localStorage.getItem('userInfo'));
+  }
+
+  public logout() {
+    const params = new HttpParams()
+      .set('userId', Cookie.get('userId'))
+      .set('authToken', Cookie.get('authToken'));
+    return this.http.post(`${this.APIURL}/api/v1/users/logout`, params);
   }
 }

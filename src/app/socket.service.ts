@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Injectable()
 export class SocketService {
@@ -13,6 +15,7 @@ export class SocketService {
 
   constructor(private http: HttpClient) {
     this.socket = io(this.APIURL);
+    this.authToken = Cookie.get('authToken');
   }
 
   public verifyUser() {
@@ -49,6 +52,11 @@ export class SocketService {
         observer.next(data);
       });
     });
+  }
+
+  public getChat(senderId, receiverId, skip) {
+    // tslint:disable-next-line:max-line-length
+    return this.http.get(`${this.APIURL}/api/v1/chat/get/for/user?senderId=${senderId}&receiverId=${receiverId}&skip=${skip}&authToken=${this.authToken}`);
   }
 
   public sendChatMessage(message) {
