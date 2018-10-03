@@ -19,12 +19,13 @@ export class ChatComponent implements OnInit {
   public userList = [];
   public disconnectedSocket: boolean;
 
+  public messageText;
+
   // tslint:disable-next-line:max-line-length
   constructor(private socketService: SocketService, private router: Router, private toastr: ToastrService, private appService: AppService) {
     this.userName = Cookie.get('userName');
     this.userId = Cookie.get('userId');
     this.userInfo = this.appService.getUserInfo();
-    console.log(this.userInfo);
   }
 
   ngOnInit() {
@@ -68,5 +69,17 @@ export class ChatComponent implements OnInit {
         }
         console.log(this.userList);
       });
+  }
+
+  public sendMessageOnKeypress(event) {
+    if (event.keyCode === 13) {
+      this.sendMessage();
+    }
+  }
+
+  public sendMessage() {
+    if (this.messageText) {
+
+    }
   }
 }

@@ -43,6 +43,22 @@ export class SocketService {
     this.socket.emit('set-user', authToken);
   }
 
+  public chatByUserId(userId) {
+    return Observable.create( observer => {
+      this.socket.on(userId, (data) => {
+        observer.next(data);
+      });
+    });
+  }
+
+  public sendChatMessage(message) {
+    this.socket.emit('chat-msg', message);
+  }
+
+  public exitSocket() {
+    this.socket.disconnect();
+  }
+
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
 
