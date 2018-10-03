@@ -59,6 +59,10 @@ export class SocketService {
     this.socket.disconnect();
   }
 
+  public markChatAsSeen(userDetails) {
+    this.socket.emit('mark-chat-as-seen', userDetails);
+  }
+
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
 
@@ -71,4 +75,5 @@ export class SocketService {
     console.error(errorMessage);
     return Observable.throw(errorMessage);
   }
+
 }
