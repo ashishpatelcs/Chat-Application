@@ -127,8 +127,8 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  public receiverChat: any = (id) => {
-    name = this.findNameById(id);
+  public receiverChat(id) {
+    const name = this.findNameById(id);
     this.userList.map(
       user => {
         if (user.userId === id) {
@@ -192,5 +192,9 @@ export class ChatComponent implements OnInit {
         this.toastr.error('Some error has occured!');
       }
     );
+  }
+
+  public showNotify(name) {
+    this.toastr.success(`You are chatting with ${name}`);
   }
 }

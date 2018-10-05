@@ -19,6 +19,6 @@ import { FormsModule } from '@angular/forms';
       }
     ])
   ],
-  declarations: [ChatComponent, UserDetailsComponent, FirstCharComponent, RemoveSpecialCharPipe]
+  declarations: [ChatComponent, RemoveSpecialCharPipe]
 })
 export class ChatModule { }

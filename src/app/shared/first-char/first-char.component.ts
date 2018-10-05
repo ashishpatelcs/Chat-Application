@@ -12,12 +12,16 @@ export class FirstCharComponent implements OnInit {
 
   public firstChar: string;
 
-  @Output() userNameAppear: EventEmitter<string> =
-      new EventEmitter<string>();
+  @Output()
+  notify: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit(): void {
 
       this.firstChar = this.userName[0];
 
   } // end ngOnInit
+
+  showName() {
+    this.notify.emit(this.userName);
+  }
 }
