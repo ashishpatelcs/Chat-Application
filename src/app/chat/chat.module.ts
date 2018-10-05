@@ -7,6 +7,7 @@ import { UserDetailsComponent } from '../shared/user-details/user-details.compon
 import { FirstCharComponent } from '../shared/first-char/first-char.component';
 import { RemoveSpecialCharPipe } from './../shared/pipe/remove-special-char.pipe';
 import { FormsModule } from '@angular/forms';
+import { ChatRouteGuardService } from './chat-route-guard.service';
 
 @NgModule({
   imports: [
@@ -15,10 +16,11 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     RouterModule.forChild([
       {
-        path: 'chat', component: ChatComponent
+        path: 'chat', component: ChatComponent, canActivate: [ChatRouteGuardService]
       }
     ])
   ],
-  declarations: [ChatComponent, RemoveSpecialCharPipe]
+  declarations: [ChatComponent, RemoveSpecialCharPipe],
+  providers: [ChatRouteGuardService]
 })
 export class ChatModule { }
