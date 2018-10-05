@@ -9,5 +9,12 @@ export class ChatRouteGuardService {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     console.log('Router guard service is running...');
+    const atok = Cookie.get('authToke');
+    if (atok === undefined || atok === '' || atok === null) {
+      this.router.navigate(['/']);
+      return false;
+    } else {
+      return true;
+    }
   }
 }
