@@ -1,6 +1,7 @@
 import { Component, OnChanges, Input, EventEmitter, Output, OnInit } from '@angular/core';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.css']
