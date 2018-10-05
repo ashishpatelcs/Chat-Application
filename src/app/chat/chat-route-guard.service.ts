@@ -9,7 +9,7 @@ export class ChatRouteGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     console.log('Router guard service is running...');
-    const atok = Cookie.get('authToke');
+    const atok = Cookie.get('authToken');
     if (atok === undefined || atok === '' || atok === null) {
       this.router.navigate(['/']);
       return false;
