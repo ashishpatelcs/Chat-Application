@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class AppService {
 
-  private APIURL = 'https://chatapi.edwisor.com';
+  private APIURL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 

@@ -115,7 +115,7 @@ export class ChatComponent implements OnInit {
   public getMessages() {
     this.socketService.chatByUserId(this.userInfo.userId).subscribe(
       data => {
-        if (this.userId === data.senderId) { this.messageList.push(data); }
+        if (this.userId === data.receiverId) { this.messageList.push(data); }
         this.toastr.success(`${data.senderName} says ${data.message}`);
         this.scrollTop = false;
       }
@@ -147,8 +147,8 @@ export class ChatComponent implements OnInit {
     this.pageValue = 0;
     this.messageList = [];
     const chatDetails = {
-      userId: this.userInfo.userId,
-      senderId: id
+      receiverId: id,
+      senderId: this.userInfo.userId
     };
     this.socketService.markChatAsSeen(chatDetails);
     this.getPreviousChatWithUser();
@@ -159,6 +159,7 @@ export class ChatComponent implements OnInit {
     this.socketService.getChat(this.userInfo.userId, this.receiverId, this.pageValue * 10).subscribe(
       (response) => {
         if (response['status'] == 200) {
+          console.log(response['data'])
           this.messageList = response['data'].concat(previousData);
         } else {
           this.messageList = previousData;

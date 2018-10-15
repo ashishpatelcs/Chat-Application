@@ -8,7 +8,7 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class SocketService {
 
-  private APIURL = 'https://chatapi.edwisor.com';
+  private APIURL = 'http://localhost:3000/chat';
   private socket;
   private authToken;
 
@@ -29,6 +29,7 @@ export class SocketService {
   public onlineUserList() {
     return Observable.create( (observer) => {
       this.socket.on('online-user-list', (userList) => {
+        console.log(userList);
         observer.next(userList);
       });
     });
@@ -56,7 +57,7 @@ export class SocketService {
 
   public getChat(senderId, receiverId, skip) {
     // tslint:disable-next-line:max-line-length
-    return this.http.get(`${this.APIURL}/api/v1/chat/get/for/user?senderId=${senderId}&receiverId=${receiverId}&skip=${skip}&authToken=${this.authToken}`);
+    return this.http.get(`http://localhost:3000/api/v1/chat/get/for/user?senderId=${senderId}&receiverId=${receiverId}&skip=${skip}&authToken=${this.authToken}`);
   }
 
   public sendChatMessage(message) {
